@@ -39,8 +39,10 @@ public final class ForecastAdapter extends BaseArrayAdapter<Item> {
 
     dayTextView.setText(
         calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
-    nightTempTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getNight()));
-    morningTempTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getMorning()));
+    nightTempTextView.setText(
+        FormatUtil.formatTemperature(item.getTemperature().getNight(), getContext()));
+    morningTempTextView.setText(
+        FormatUtil.formatTemperature(item.getTemperature().getMorning(), getContext()));
 
     Picasso.with(getActivity())
         .load(String.format(Constants.IMAGE_URL, item.getWeatherList().get(0).getIcon()))

@@ -11,4 +11,10 @@
   <string name="city_not_found">City or zip code not found</string>
   <string name="getting_location">Getting your location</string>
   <string name="using_default_location">Current location not found, using default location - Chicago</string>
+  <string name="title_activity_settings">SettingsActivity</string>
+  <string name="action_settings">Settings</string>
+  <string name="use_celsius_pref_tiitle">Use celsius</string>
+  <string name="use_celsius_pref_key">use_celsius</string>
+  <string name="common_settings_title">Temperature format</string>
+  <string name="use_celsius_pref_summary">Show temperature in celsius</string>
 </resources>

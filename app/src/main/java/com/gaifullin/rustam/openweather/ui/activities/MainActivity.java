@@ -1,11 +1,14 @@
 package com.gaifullin.rustam.openweather.ui.activities;
 
+import android.content.Intent;
 import android.location.Location;
 import android.location.LocationListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -28,7 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 
-public class MainActivity extends ActionBarActivity
+public final class MainActivity extends ActionBarActivity
     implements ChangeCityDialog.ChangeCityDialogListener {
 
   private ListView mListView;
@@ -129,6 +132,25 @@ public class MainActivity extends ActionBarActivity
     refreshWeather(request);
   }
 
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.menu_main, menu);
+    return true;
+  }
+
+  @Override
+  public boolean onOptionsItemSelected(MenuItem item) {
+    int id = item.getItemId();
+
+    if (id == R.id.action_settings) {
+      Intent intent = new Intent(this, SettingsActivity.class);
+      startActivity(intent);
+      return true;
+    }
+
+    return super.onOptionsItemSelected(item);
+  }
+
   private void refreshWeather(Location location) {
     DailyRequest dailyRequest =
         new DailyRequest(location.getLatitude(), location.getLongitude());
@@ -152,11 +174,11 @@ public class MainActivity extends ActionBarActivity
 
   private void fillControls(Item item, String city) {
     mCityButton.setText(city);
-    mTemperatureTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getDay()));
+    mTemperatureTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getDay(), this));
     mMinTextView.setText(
-        String.format("Min\n%s", FormatUtil.formatTemperature(item.getTemperature().getMax())));
+        String.format("Min\n%s", FormatUtil.formatTemperature(item.getTemperature().getMax(), this)));
     mMaxTextView.setText(
-        String.format("Max\n%s", FormatUtil.formatTemperature(item.getTemperature().getMin())));
+        String.format("Max\n%s", FormatUtil.formatTemperature(item.getTemperature().getMin(), this)));
     mHumidityTextView.setText(FormatUtil.percentValue(item.getHumidity()));
   }
 
