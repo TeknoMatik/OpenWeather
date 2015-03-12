@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">OpenWeather</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="error_connection">Connection error.</string>
-    <string name="loading">Loading weather information</string>
-    <string name="cityOrZip">Enter city or ZIP code</string>
-    <string name="ok">OK</string>
-    <string name="cancel">Cancel</string>
-    <string name="city_not_found">City or zip code not found</string>
-    <string name="getting_location">Getting your location</string>
-    <string name="using_default_location">Current location not found, using default location - Chicago</string>
+  <string name="app_name">OpenWeather</string>
+  <string name="hello_world">Hello world!</string>
+  <string name="error_connection">Connection error.</string>
+  <string name="loading">Loading weather information</string>
+  <string name="cityOrZip">Enter city or ZIP code</string>
+  <string name="ok">OK</string>
+  <string name="cancel">Cancel</string>
+  <string name="city_not_found">City or zip code not found</string>
+  <string name="getting_location">Getting your location</string>
+  <string name="using_default_location">Current location not found, using default location - Chicago</string>
 </resources>

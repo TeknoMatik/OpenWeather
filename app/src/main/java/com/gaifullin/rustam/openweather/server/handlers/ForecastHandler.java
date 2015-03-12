@@ -12,24 +12,24 @@ import org.json.JSONObject;
  */
 public class ForecastHandler extends BaseJsonHandler<ForecastRequest, ForecastResponse> {
 
-    public static final String METHOD_URL = "forecast/daily";
+  public static final String METHOD_URL = "forecast/daily";
 
-    public ForecastHandler(ForecastRequest request) {
-        super(request);
-    }
+  public ForecastHandler(ForecastRequest request) {
+    super(request);
+  }
 
-    @Override
-    public void fillParams(RequestParams params) {
-        mRequest.fillParams(params);
-    }
+  @Override
+  public void fillParams(RequestParams params) {
+    mRequest.fillParams(params);
+  }
 
-    @Override
-    public String getUrl() {
-        return METHOD_URL;
-    }
+  @Override
+  public String getUrl() {
+    return METHOD_URL;
+  }
 
-    @Override
-    protected ForecastResponse onOK(JSONObject o) throws JSONException {
-        return new ForecastResponse(o);
-    }
+  @Override
+  protected ForecastResponse onOK(JSONObject o) throws JSONException {
+    return new ForecastResponse(o);
+  }
 }

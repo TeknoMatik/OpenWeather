@@ -9,9 +9,9 @@ import java.io.Serializable;
  */
 public class BaseRequest implements Serializable {
 
-    private static final long serialVersionUID = 4252208824252727981L;
+  private static final long serialVersionUID = 4252208824252727981L;
 
-    public void fillParams(RequestParams params) {
+  public void fillParams(RequestParams params) {
 
-    }
+  }
 }
