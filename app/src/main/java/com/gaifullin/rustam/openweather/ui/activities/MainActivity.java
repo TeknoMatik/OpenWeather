@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.gaifullin.rustam.openweather.Constants;
 import com.gaifullin.rustam.openweather.R;
 import com.gaifullin.rustam.openweather.server.OpenWeatherClient;
@@ -25,14 +24,12 @@ import com.gaifullin.rustam.openweather.ui.dialogs.ChangeCityDialog;
 import com.gaifullin.rustam.openweather.utils.DeviceUtil;
 import com.gaifullin.rustam.openweather.utils.FormatUtil;
 import com.gaifullin.rustam.openweather.utils.LocationUtil;
-
-import org.json.JSONException;
-
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONException;
 
-
-public class MainActivity extends ActionBarActivity implements ChangeCityDialog.ChangeCityDialogListener {
+public class MainActivity extends ActionBarActivity
+    implements ChangeCityDialog.ChangeCityDialogListener {
 
   private ListView mListView;
   private List<Item> listItem;
@@ -63,31 +60,34 @@ public class MainActivity extends ActionBarActivity implements ChangeCityDialog.
     }
   };
 
-  private OnResponseListener<ForecastResponse> mOnResponseListener = new OnResponseListener<ForecastResponse>() {
-    @Override
-    public void onOk(ForecastResponse response) {
-      listItem = response.getItemList();
-      mAdapter = new ForecastAdapter(MainActivity.this, listItem);
-      mListView.setAdapter(mAdapter);
-      mAdapter.notifyDataSetChanged();
+  private OnResponseListener<ForecastResponse> mOnResponseListener =
+      new OnResponseListener<ForecastResponse>() {
+        @Override
+        public void onOk(ForecastResponse response) {
+          listItem = response.getItemList();
+          mAdapter = new ForecastAdapter(MainActivity.this, listItem);
+          mListView.setAdapter(mAdapter);
+          mAdapter.notifyDataSetChanged();
 
-      fillControls(response.getItemList().get(0), response.getCity().getName());
-      DeviceUtil.hideProgressDialog();
-    }
+          fillControls(response.getItemList().get(0), response.getCity().getName());
+          DeviceUtil.hideProgressDialog();
+        }
 
-    @Override
-    public void onNotFound() {
-      DeviceUtil.hideProgressDialog();
-      Toast.makeText(MainActivity.this, getString(R.string.city_not_found), Toast.LENGTH_SHORT).show();
-    }
+        @Override
+        public void onNotFound() {
+          DeviceUtil.hideProgressDialog();
+          Toast.makeText(MainActivity.this, getString(R.string.city_not_found), Toast.LENGTH_SHORT)
+              .show();
+        }
 
-    @Override
-    public void onError(Throwable throwable) {
-      Log.d(MainActivity.class.getName(), throwable.getLocalizedMessage());
-      DeviceUtil.hideProgressDialog();
-      Toast.makeText(MainActivity.this, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-    }
-  };
+        @Override
+        public void onError(Throwable throwable) {
+          Log.d(MainActivity.class.getName(), throwable.getLocalizedMessage());
+          DeviceUtil.hideProgressDialog();
+          Toast.makeText(MainActivity.this, throwable.getLocalizedMessage(), Toast.LENGTH_SHORT)
+              .show();
+        }
+      };
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +124,8 @@ public class MainActivity extends ActionBarActivity implements ChangeCityDialog.
   }
 
   private void refreshWeather(Location location) {
-    ForecastRequest forecastRequest = new ForecastRequest(location.getLatitude(), location.getLongitude());
+    ForecastRequest forecastRequest =
+        new ForecastRequest(location.getLatitude(), location.getLongitude());
     refreshWeather(forecastRequest);
   }
 
@@ -136,7 +137,8 @@ public class MainActivity extends ActionBarActivity implements ChangeCityDialog.
   private void refreshWeather(ForecastRequest request) {
     try {
       DeviceUtil.showProgressDialog(this, getString(R.string.loading));
-      OpenWeatherClient.request(new ForecastHandler(request).addResponseListener(mOnResponseListener));
+      OpenWeatherClient.request(
+          new ForecastHandler(request).addResponseListener(mOnResponseListener));
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -145,8 +147,10 @@ public class MainActivity extends ActionBarActivity implements ChangeCityDialog.
   private void fillControls(Item item, String city) {
     mCityButton.setText(city);
     mTemperatureTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getDay()));
-    mMinTextView.setText(String.format("Min\n%s", FormatUtil.formatTemperature(item.getTemperature().getMax())));
-    mMaxTextView.setText(String.format("Max\n%s", FormatUtil.formatTemperature(item.getTemperature().getMin())));
+    mMinTextView.setText(
+        String.format("Min\n%s", FormatUtil.formatTemperature(item.getTemperature().getMax())));
+    mMaxTextView.setText(
+        String.format("Max\n%s", FormatUtil.formatTemperature(item.getTemperature().getMin())));
     mHumidityTextView.setText(FormatUtil.percentValue(item.getHumidity()));
   }
 
@@ -185,7 +189,8 @@ public class MainActivity extends ActionBarActivity implements ChangeCityDialog.
       if (location != null) {
         refreshWeather(location);
       } else {
-        Toast.makeText(MainActivity.this, getString(R.string.using_default_location), Toast.LENGTH_SHORT).show();
+        Toast.makeText(MainActivity.this, getString(R.string.using_default_location),
+            Toast.LENGTH_SHORT).show();
         refreshWeather(Constants.DEFAULT_CITY);
       }
     }

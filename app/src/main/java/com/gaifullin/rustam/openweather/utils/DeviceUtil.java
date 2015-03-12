@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.util.Log;
 import android.view.Window;
-
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**

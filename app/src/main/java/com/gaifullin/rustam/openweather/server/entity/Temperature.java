@@ -1,8 +1,7 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
-import org.json.JSONObject;
-
 import java.io.Serializable;
+import org.json.JSONObject;
 
 /**
  * Created by rustamgaifullin on 3/11/15.

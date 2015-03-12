@@ -4,9 +4,7 @@ import android.content.Context;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-
 import com.gaifullin.rustam.openweather.Constants;
-
 import java.util.List;
 
 /**
@@ -49,19 +47,23 @@ public class LocationUtil {
       isNetworkEnabled = false;
     }
     try {
-      isPassiveProviderEnabled = locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER);
+      isPassiveProviderEnabled =
+          locationManager.isProviderEnabled(LocationManager.PASSIVE_PROVIDER);
     } catch (Exception ex) {
       isPassiveProviderEnabled = false;
     }
 
     if (isPassiveProviderEnabled) {
-      locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER, Constants.GPS_UPDATE_TIME, 0, locationListener);
+      locationManager.requestLocationUpdates(LocationManager.PASSIVE_PROVIDER,
+          Constants.GPS_UPDATE_TIME, 0, locationListener);
     }
     if (isNetworkEnabled) {
-      locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, Constants.GPS_UPDATE_TIME, 0, locationListener);
+      locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
+          Constants.GPS_UPDATE_TIME, 0, locationListener);
     }
     if (isGPSEnabled) {
-      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, Constants.GPS_UPDATE_TIME, 0, locationListener);
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,
+          Constants.GPS_UPDATE_TIME, 0, locationListener);
     }
   }
 }

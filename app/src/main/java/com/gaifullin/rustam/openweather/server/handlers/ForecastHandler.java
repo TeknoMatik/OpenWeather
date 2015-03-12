@@ -3,7 +3,6 @@ package com.gaifullin.rustam.openweather.server.handlers;
 import com.gaifullin.rustam.openweather.server.requests.ForecastRequest;
 import com.gaifullin.rustam.openweather.server.responses.ForecastResponse;
 import com.loopj.android.http.RequestParams;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 

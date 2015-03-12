@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.gaifullin.rustam.openweather.Constants;
 import com.gaifullin.rustam.openweather.R;
 import com.gaifullin.rustam.openweather.server.entity.Item;
 import com.gaifullin.rustam.openweather.utils.FormatUtil;
 import com.squareup.picasso.Picasso;
-
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -26,11 +24,8 @@ public class ForecastAdapter extends BaseArrayAdapter<Item> {
 
   @Override
   protected int[] getCachedResources() {
-    return new int[]{
-        R.id.dayTextView,
-        R.id.nightTempTextView,
-        R.id.morningTempTextView,
-        R.id.weatherImageView
+    return new int[] {
+        R.id.dayTextView, R.id.nightTempTextView, R.id.morningTempTextView, R.id.weatherImageView
     };
   }
 
@@ -45,11 +40,14 @@ public class ForecastAdapter extends BaseArrayAdapter<Item> {
     Calendar calendar = Calendar.getInstance();
     calendar.setTimeInMillis(item.getDateTime() * 1000);
 
-    dayTextView.setText(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
+    dayTextView.setText(
+        calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.getDefault()));
     nightTempTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getNight()));
     morningTempTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getMorning()));
 
-    Picasso.with(getActivity()).load(String.format(Constants.IMAGE_URL, item.getWeatherList().get(0).getIcon())).into(weatherImageView);
+    Picasso.with(getActivity())
+        .load(String.format(Constants.IMAGE_URL, item.getWeatherList().get(0).getIcon()))
+        .into(weatherImageView);
   }
 
   @Override

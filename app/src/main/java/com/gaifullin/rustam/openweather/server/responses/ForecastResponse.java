@@ -2,13 +2,11 @@ package com.gaifullin.rustam.openweather.server.responses;
 
 import com.gaifullin.rustam.openweather.server.entity.City;
 import com.gaifullin.rustam.openweather.server.entity.Item;
-
+import java.util.ArrayList;
+import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by rustamgaifullin on 3/11/15.

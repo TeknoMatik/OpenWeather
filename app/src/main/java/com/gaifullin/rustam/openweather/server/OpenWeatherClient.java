@@ -1,14 +1,11 @@
 package com.gaifullin.rustam.openweather.server;
 
 import android.util.Log;
-
 import com.gaifullin.rustam.openweather.server.handlers.BaseJsonHandler;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
-
-import org.json.JSONException;
-
 import java.text.MessageFormat;
+import org.json.JSONException;
 
 /**
  * Created by rustamgaifullin on 3/11/15.
@@ -35,7 +32,8 @@ public class OpenWeatherClient {
 
     final RequestParams params = new RequestParams();
     handler.fillParams(params);
-    Log.i(OpenWeatherClient.class.getName(), MessageFormat.format("URL: {0}\nRequest:{1}", absoluteUrl, params));
+    Log.i(OpenWeatherClient.class.getName(),
+        MessageFormat.format("URL: {0}\nRequest:{1}", absoluteUrl, params));
     sClient.get(absoluteUrl, params, handler);
   }
 }

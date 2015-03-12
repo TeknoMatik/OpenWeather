@@ -1,12 +1,11 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * Created by rustamgaifullin on 3/11/15.

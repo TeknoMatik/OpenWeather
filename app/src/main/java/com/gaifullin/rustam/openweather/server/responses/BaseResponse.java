@@ -1,9 +1,8 @@
 package com.gaifullin.rustam.openweather.server.responses;
 
+import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.Serializable;
 
 /**
  * Created by rustamgaifullin on 3/11/15.

@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-
 import java.util.List;
 
 /**
@@ -33,8 +32,8 @@ public abstract class BaseArrayAdapter<Item extends Object> extends ArrayAdapter
       }
     }
     if (view == null) {
-      final LayoutInflater inflater = (LayoutInflater) getContext()
-          .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+      final LayoutInflater inflater =
+          (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
       view = inflater.inflate(layoutId, parent, false);
       final ViewHolder viewHolder = createHolder(layoutId);
       initViewHolder(view, position, viewHolder);
@@ -66,7 +65,7 @@ public abstract class BaseArrayAdapter<Item extends Object> extends ArrayAdapter
   protected abstract int[] getCachedResources();
 
   protected abstract void initControls(final View view, final int position,
-                                       final ViewHolder viewHolder);
+      final ViewHolder viewHolder);
 
   protected abstract int getLayoutId(final int position);
 

@@ -1,7 +1,6 @@
 package com.gaifullin.rustam.openweather.server.requests;
 
 import com.loopj.android.http.RequestParams;
-
 import java.io.Serializable;
 
 /**
