@@ -6,7 +6,7 @@ import com.loopj.android.http.RequestParams;
 /**
  * Created by rustamgaifullin on 3/11/15.
  */
-public class ForecastRequest extends BaseRequest {
+public class DailyRequest extends BaseRequest {
   private static final long serialVersionUID = -3495165553279849985L;
 
   private static final int DAYS = 5;
@@ -15,11 +15,11 @@ public class ForecastRequest extends BaseRequest {
   private double mLatitude;
   private double mLongitude;
 
-  public ForecastRequest(String q) {
+  public DailyRequest(String q) {
     this.q = q;
   }
 
-  public ForecastRequest(double mLatitude, double mLongitude) {
+  public DailyRequest(double mLatitude, double mLongitude) {
     this.mLatitude = mLatitude;
     this.mLongitude = mLongitude;
   }

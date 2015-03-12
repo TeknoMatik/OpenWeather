@@ -1,7 +1,7 @@
 package com.gaifullin.rustam.openweather.server.handlers;
 
-import com.gaifullin.rustam.openweather.server.requests.ForecastRequest;
-import com.gaifullin.rustam.openweather.server.responses.ForecastResponse;
+import com.gaifullin.rustam.openweather.server.requests.DailyRequest;
+import com.gaifullin.rustam.openweather.server.responses.DailyResponse;
 import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
@@ -10,11 +10,11 @@ import org.json.JSONObject;
 /**
  * Created by rustamgaifullin on 3/11/15.
  */
-public class ForecastHandler extends BaseJsonHandler<ForecastRequest, ForecastResponse> {
+public class DailyHandler extends BaseJsonHandler<DailyRequest, DailyResponse> {
 
   public static final String METHOD_URL = "forecast/daily";
 
-  public ForecastHandler(ForecastRequest request) {
+  public DailyHandler(DailyRequest request) {
     super(request);
   }
 
@@ -29,8 +29,8 @@ public class ForecastHandler extends BaseJsonHandler<ForecastRequest, ForecastRe
   }
 
   @Override
-  protected ForecastResponse onOK(JSONObject o) throws JSONException {
+  protected DailyResponse onOK(JSONObject o) throws JSONException {
     Gson gson = new Gson();
-    return gson.fromJson(o.toString(), ForecastResponse.class);
+    return gson.fromJson(o.toString(), DailyResponse.class);
   }
 }

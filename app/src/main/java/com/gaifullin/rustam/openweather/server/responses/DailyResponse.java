@@ -12,7 +12,7 @@ import org.json.JSONObject;
 /**
  * Created by rustamgaifullin on 3/11/15.
  */
-public class ForecastResponse extends BaseResponse {
+public class DailyResponse extends BaseResponse {
 
   private static final long serialVersionUID = -3652426689846372212L;
 
