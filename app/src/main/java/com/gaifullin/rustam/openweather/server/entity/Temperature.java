@@ -1,5 +1,6 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import org.json.JSONObject;
 
@@ -8,24 +9,20 @@ import org.json.JSONObject;
  */
 public class Temperature implements Serializable {
   private static final long serialVersionUID = -1793322847419321760L;
-  private double day;
-  private double min;
-  private double max;
-  private double night;
-  private double evening;
-  private double morning;
 
-  public Temperature(JSONObject o) {
-    JSONObject temperatureJsonObject = o.optJSONObject("temp");
-    if (temperatureJsonObject != null) {
-      day = temperatureJsonObject.optDouble("day");
-      min = temperatureJsonObject.optDouble("min");
-      max = temperatureJsonObject.optDouble("max");
-      night = temperatureJsonObject.optDouble("night");
-      evening = temperatureJsonObject.optDouble("evening");
-      morning = temperatureJsonObject.optDouble("morn");
-    }
-  }
+  private double day;
+
+  private double min;
+
+  private double max;
+
+  private double night;
+
+  @SerializedName("eve")
+  private double evening;
+
+  @SerializedName("morn")
+  private double morning;
 
   public double getDay() {
     return day;

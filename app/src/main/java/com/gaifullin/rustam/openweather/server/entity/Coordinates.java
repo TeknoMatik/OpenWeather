@@ -1,5 +1,6 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import org.json.JSONObject;
 
@@ -9,16 +10,11 @@ import org.json.JSONObject;
 public class Coordinates implements Serializable {
   private static final long serialVersionUID = -8452960924000886053L;
 
+  @SerializedName("lat")
   private double latitude;
-  private double longitude;
 
-  public Coordinates(JSONObject o) {
-    JSONObject coordinatesJsonObject = o.optJSONObject("coord");
-    if (coordinatesJsonObject != null) {
-      this.latitude = coordinatesJsonObject.optDouble("lat");
-      this.longitude = coordinatesJsonObject.optDouble("lon");
-    }
-  }
+  @SerializedName("lon")
+  private double longitude;
 
   public double getLatitude() {
     return latitude;

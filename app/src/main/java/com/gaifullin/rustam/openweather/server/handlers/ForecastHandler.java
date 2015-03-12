@@ -2,6 +2,7 @@ package com.gaifullin.rustam.openweather.server.handlers;
 
 import com.gaifullin.rustam.openweather.server.requests.ForecastRequest;
 import com.gaifullin.rustam.openweather.server.responses.ForecastResponse;
+import com.google.gson.Gson;
 import com.loopj.android.http.RequestParams;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,6 +30,7 @@ public class ForecastHandler extends BaseJsonHandler<ForecastRequest, ForecastRe
 
   @Override
   protected ForecastResponse onOK(JSONObject o) throws JSONException {
-    return new ForecastResponse(o);
+    Gson gson = new Gson();
+    return gson.fromJson(o.toString(), ForecastResponse.class);
   }
 }

@@ -1,5 +1,6 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import org.json.JSONObject;
 
@@ -10,19 +11,13 @@ public class City implements Serializable {
   private static final long serialVersionUID = -6268004874642363625L;
 
   private int id;
-  private String name;
-  private String country;
-  private Coordinates coordinates;
 
-  public City(JSONObject o) {
-    JSONObject cityJsonObject = o.optJSONObject("city");
-    if (cityJsonObject != null) {
-      this.id = cityJsonObject.optInt("id");
-      this.name = cityJsonObject.optString("name");
-      this.country = cityJsonObject.optString("country");
-      this.coordinates = new Coordinates(cityJsonObject);
-    }
-  }
+  private String name;
+
+  private String country;
+
+  @SerializedName("coord")
+  private Coordinates coordinates;
 
   public int getId() {
     return id;

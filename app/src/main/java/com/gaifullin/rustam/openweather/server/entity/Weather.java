@@ -10,19 +10,12 @@ public class Weather implements Serializable {
   private static final long serialVersionUID = 4974414852153081305L;
 
   private long id;
+
   private String main;
+
   private String description;
+
   private String icon;
-
-  public Weather(JSONObject o) {
-
-    if (o != null) {
-      this.id = o.optLong("id");
-      this.main = o.optString("main");
-      this.description = o.optString("description");
-      this.icon = o.optString("icon");
-    }
-  }
 
   public long getId() {
     return id;

@@ -1,5 +1,6 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,51 +15,28 @@ public class Item implements Serializable {
   private static final long serialVersionUID = -8244237877878367713L;
 
   private Temperature temperature;
-  private Wind wind;
+
+  @SerializedName("weather")
   private List<Weather> weatherList;
+
+  private double speed;
+
+  @SerializedName("deg")
+  private double direction;
+
   private double rain;
+
   private double snow;
+
   private double clouds;
+
   private int humidity;
+
+  @SerializedName("dt")
   private long dateTime;
-
-  public Item(JSONObject o) {
-    if (o != null) {
-      temperature = new Temperature(o);
-      wind = new Wind(o);
-
-      dateTime = o.optLong("dt");
-      clouds = o.optDouble("clouds");
-      humidity = o.optInt("humidity");
-      if (o.has("snow")) {
-        snow = o.optDouble("snow");
-      }
-      if (o.has("rain")) {
-        rain = o.optDouble("rain");
-      }
-
-      JSONArray jsonArray = o.optJSONArray("weather");
-      if (jsonArray != null) {
-        weatherList = new ArrayList<>();
-        for (int i = 0; i < jsonArray.length(); i++) {
-          try {
-            JSONObject weatherJsonObject = jsonArray.getJSONObject(i);
-            Weather weather = new Weather(weatherJsonObject);
-            weatherList.add(weather);
-          } catch (JSONException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    }
-  }
 
   public Temperature getTemperature() {
     return temperature;
-  }
-
-  public Wind getWind() {
-    return wind;
   }
 
   public List<Weather> getWeatherList() {
@@ -89,7 +67,6 @@ public class Item implements Serializable {
   public String toString() {
     final StringBuilder sb = new StringBuilder("Item{");
     sb.append("temperature=").append(temperature);
-    sb.append(", wind=").append(wind);
     sb.append(", weatherList=").append(weatherList);
     sb.append(", rain=").append(rain);
     sb.append(", snow=").append(snow);
