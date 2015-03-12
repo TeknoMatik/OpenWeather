@@ -1,5 +1,6 @@
 package com.gaifullin.rustam.openweather.server.responses;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -8,22 +9,13 @@ import org.json.JSONObject;
  * Created by rustamgaifullin on 3/11/15.
  */
 public class BaseResponse implements Serializable {
-
   private static final long serialVersionUID = 4133851045592099400L;
 
+  @SerializedName("cod")
   private int code;
-
-  public BaseResponse(final JSONObject o) throws JSONException {
-    if (o != null) {
-      code = o.optInt("cod");
-    }
-  }
 
   public int getCode() {
     return code;
-  }
-
-  protected BaseResponse() {
   }
 
   @Override

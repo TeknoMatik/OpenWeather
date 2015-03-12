@@ -5,15 +5,18 @@ import java.io.Serializable;
 import org.json.JSONObject;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents a city object in the daily response
  */
-public class City implements Serializable {
+public final class City implements Serializable {
   private static final long serialVersionUID = -6268004874642363625L;
 
+  @SerializedName("id")
   private int id;
 
+  @SerializedName("name")
   private String name;
 
+  @SerializedName("country")
   private String country;
 
   @SerializedName("coord")

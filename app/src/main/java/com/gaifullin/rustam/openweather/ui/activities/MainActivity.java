@@ -15,10 +15,10 @@ import com.gaifullin.rustam.openweather.Constants;
 import com.gaifullin.rustam.openweather.R;
 import com.gaifullin.rustam.openweather.server.OpenWeatherClient;
 import com.gaifullin.rustam.openweather.server.entity.Item;
-import com.gaifullin.rustam.openweather.server.handlers.ForecastHandler;
+import com.gaifullin.rustam.openweather.server.handlers.DailyHandler;
 import com.gaifullin.rustam.openweather.server.listeners.OnResponseListener;
-import com.gaifullin.rustam.openweather.server.requests.ForecastRequest;
-import com.gaifullin.rustam.openweather.server.responses.ForecastResponse;
+import com.gaifullin.rustam.openweather.server.requests.DailyRequest;
+import com.gaifullin.rustam.openweather.server.responses.DailyResponse;
 import com.gaifullin.rustam.openweather.ui.adapters.ForecastAdapter;
 import com.gaifullin.rustam.openweather.ui.dialogs.ChangeCityDialog;
 import com.gaifullin.rustam.openweather.utils.DeviceUtil;
@@ -43,6 +43,8 @@ public class MainActivity extends ActionBarActivity
 
   private Location mFoundLocation;
 
+  private Boolean mIsFirstTime = true;
+
   public LocationListener mLocationListener = new LocationListener() {
     public void onLocationChanged(Location location) {
       mFoundLocation = location;
@@ -60,10 +62,10 @@ public class MainActivity extends ActionBarActivity
     }
   };
 
-  private OnResponseListener<ForecastResponse> mOnResponseListener =
-      new OnResponseListener<ForecastResponse>() {
+  private OnResponseListener<DailyResponse> mOnResponseListener =
+      new OnResponseListener<DailyResponse>() {
         @Override
-        public void onOk(ForecastResponse response) {
+        public void onOk(DailyResponse response) {
           listItem = response.getItemList();
           mAdapter = new ForecastAdapter(MainActivity.this, listItem);
           mListView.setAdapter(mAdapter);
@@ -107,38 +109,42 @@ public class MainActivity extends ActionBarActivity
   @Override
   protected void onResume() {
     super.onResume();
-    LocationUtil.requestLocation(mLocationListener, this);
-    new PerformLocationTask().execute();
+    if (mIsFirstTime) {
+      LocationUtil.requestLocation(mLocationListener, this);
+      new PerformLocationTask().execute();
+      mIsFirstTime = false;
+    }
   }
 
   @Override
   protected void onPause() {
     super.onPause();
     LocationUtil.locationManager.removeUpdates(mLocationListener);
+    mIsFirstTime = true;
   }
 
   @Override
   public void onDialogPositiveClick(String query) {
-    ForecastRequest request = new ForecastRequest(query);
+    DailyRequest request = new DailyRequest(query);
     refreshWeather(request);
   }
 
   private void refreshWeather(Location location) {
-    ForecastRequest forecastRequest =
-        new ForecastRequest(location.getLatitude(), location.getLongitude());
-    refreshWeather(forecastRequest);
+    DailyRequest dailyRequest =
+        new DailyRequest(location.getLatitude(), location.getLongitude());
+    refreshWeather(dailyRequest);
   }
 
   private void refreshWeather(String city) {
-    ForecastRequest forecastRequest = new ForecastRequest(city);
-    refreshWeather(forecastRequest);
+    DailyRequest dailyRequest = new DailyRequest(city);
+    refreshWeather(dailyRequest);
   }
 
-  private void refreshWeather(ForecastRequest request) {
+  private void refreshWeather(DailyRequest request) {
     try {
       DeviceUtil.showProgressDialog(this, getString(R.string.loading));
       OpenWeatherClient.request(
-          new ForecastHandler(request).addResponseListener(mOnResponseListener));
+          new DailyHandler(request).addResponseListener(mOnResponseListener));
     } catch (JSONException e) {
       e.printStackTrace();
     }

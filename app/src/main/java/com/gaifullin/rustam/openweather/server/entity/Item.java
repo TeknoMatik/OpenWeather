@@ -9,27 +9,33 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents an item object in the daily response
  */
 public class Item implements Serializable {
   private static final long serialVersionUID = -8244237877878367713L;
 
+  @SerializedName("temp")
   private Temperature temperature;
 
   @SerializedName("weather")
   private List<Weather> weatherList;
 
+  @SerializedName("speed")
   private double speed;
 
   @SerializedName("deg")
   private double direction;
 
+  @SerializedName("rain")
   private double rain;
 
+  @SerializedName("snow")
   private double snow;
 
+  @SerializedName("clouds")
   private double clouds;
 
+  @SerializedName("humidity")
   private int humidity;
 
   @SerializedName("dt")
@@ -63,11 +69,12 @@ public class Item implements Serializable {
     return dateTime;
   }
 
-  @Override
-  public String toString() {
+  @Override public String toString() {
     final StringBuilder sb = new StringBuilder("Item{");
     sb.append("temperature=").append(temperature);
     sb.append(", weatherList=").append(weatherList);
+    sb.append(", speed=").append(speed);
+    sb.append(", direction=").append(direction);
     sb.append(", rain=").append(rain);
     sb.append(", snow=").append(snow);
     sb.append(", clouds=").append(clouds);

@@ -1,20 +1,25 @@
 package com.gaifullin.rustam.openweather.server.entity;
 
+import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 import org.json.JSONObject;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents a weather object in the daily response
  */
-public class Weather implements Serializable {
+public final class Weather implements Serializable {
   private static final long serialVersionUID = 4974414852153081305L;
 
+  @SerializedName("id")
   private long id;
 
+  @SerializedName("main")
   private String main;
 
+  @SerializedName("description")
   private String description;
 
+  @SerializedName("icon")
   private String icon;
 
   public long getId() {

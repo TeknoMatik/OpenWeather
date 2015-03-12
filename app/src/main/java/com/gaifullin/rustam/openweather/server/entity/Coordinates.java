@@ -5,9 +5,9 @@ import java.io.Serializable;
 import org.json.JSONObject;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents a coordinates object in the daily response
  */
-public class Coordinates implements Serializable {
+public final class Coordinates implements Serializable {
   private static final long serialVersionUID = -8452960924000886053L;
 
   @SerializedName("lat")

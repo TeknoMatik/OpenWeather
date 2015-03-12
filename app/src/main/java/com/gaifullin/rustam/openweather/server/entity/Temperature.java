@@ -5,17 +5,21 @@ import java.io.Serializable;
 import org.json.JSONObject;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents a temperature object in the daily response
  */
-public class Temperature implements Serializable {
+public final class Temperature implements Serializable {
   private static final long serialVersionUID = -1793322847419321760L;
 
+  @SerializedName("day")
   private double day;
 
+  @SerializedName("min")
   private double min;
 
+  @SerializedName("max")
   private double max;
 
+  @SerializedName("night")
   private double night;
 
   @SerializedName("eve")
@@ -48,8 +52,7 @@ public class Temperature implements Serializable {
     return morning;
   }
 
-  @Override
-  public String toString() {
+  @Override public String toString() {
     final StringBuilder sb = new StringBuilder("Temperature{");
     sb.append("day=").append(day);
     sb.append(", min=").append(min);
