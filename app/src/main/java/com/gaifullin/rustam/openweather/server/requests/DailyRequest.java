@@ -4,9 +4,9 @@ import com.gaifullin.rustam.openweather.utils.FormatUtil;
 import com.loopj.android.http.RequestParams;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Represents a request for daily weather
  */
-public class DailyRequest extends BaseRequest {
+public final class DailyRequest extends BaseRequest {
   private static final long serialVersionUID = -3495165553279849985L;
 
   private static final int DAYS = 5;

@@ -5,10 +5,7 @@ import java.io.Serializable;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by rustamgaifullin on 3/11/15.
- */
-public class BaseResponse implements Serializable {
+public abstract class BaseResponse implements Serializable {
   private static final long serialVersionUID = 4133851045592099400L;
 
   @SerializedName("cod")

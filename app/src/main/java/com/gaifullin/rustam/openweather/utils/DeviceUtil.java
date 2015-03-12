@@ -6,11 +6,7 @@ import android.util.Log;
 import android.view.Window;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/**
- * Created by rustamgaifullin on 3/11/15.
- */
 public class DeviceUtil {
-
   private static final AtomicInteger sCountStartDialog = new AtomicInteger(0);
   private static ProgressDialog sDialog;
 

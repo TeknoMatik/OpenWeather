@@ -10,7 +10,7 @@ import org.json.JSONObject;
 /**
  * Created by rustamgaifullin on 3/11/15.
  */
-public class DailyHandler extends BaseJsonHandler<DailyRequest, DailyResponse> {
+public final class DailyHandler extends BaseJsonHandler<DailyRequest, DailyResponse> {
   public static final String METHOD_URL = "forecast/daily";
 
   public DailyHandler(DailyRequest request) {

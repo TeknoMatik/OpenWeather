@@ -8,7 +8,7 @@ import com.gaifullin.rustam.openweather.Constants;
 import java.util.List;
 
 /**
- * Created by rustamgaifullin on 3/12/15.
+ * utility methods for operations with the location manager
  */
 public class LocationUtil {
   public static LocationManager locationManager;

@@ -3,7 +3,7 @@ package com.gaifullin.rustam.openweather.utils;
 import java.text.DecimalFormat;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * utility methods for different formats
  */
 public class FormatUtil {
 

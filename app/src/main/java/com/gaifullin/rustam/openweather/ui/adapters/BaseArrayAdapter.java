@@ -9,9 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import java.util.List;
 
-/**
- * Created by rustamgaifullin on 3/11/15.
- */
 public abstract class BaseArrayAdapter<Item extends Object> extends ArrayAdapter<Item> {
 
   private Activity mActivity;

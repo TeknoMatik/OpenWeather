@@ -11,9 +11,6 @@ import android.view.View;
 import android.widget.EditText;
 import com.gaifullin.rustam.openweather.R;
 
-/**
- * Created by rustamgaifullin on 3/11/15.
- */
 public class ChangeCityDialog extends DialogFragment {
 
   public static final String TAG = "changeCityDialog";

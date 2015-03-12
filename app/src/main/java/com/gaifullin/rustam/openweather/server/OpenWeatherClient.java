@@ -8,9 +8,9 @@ import java.text.MessageFormat;
 import org.json.JSONException;
 
 /**
- * Created by rustamgaifullin on 3/11/15.
+ * Async HTTP Client for the openweather.com
  */
-public class OpenWeatherClient {
+public final class OpenWeatherClient {
   private static final String BASE_URL = "http://api.openweathermap.org/data/2.5/";
 
   private static AsyncHttpClient sClient = new AsyncHttpClient();

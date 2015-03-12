@@ -13,10 +13,7 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-/**
- * Created by rustamgaifullin on 3/11/15.
- */
-public class ForecastAdapter extends BaseArrayAdapter<Item> {
+public final class ForecastAdapter extends BaseArrayAdapter<Item> {
 
   public ForecastAdapter(Activity context, List<Item> itemList) {
     super(context, itemList);

@@ -11,7 +11,7 @@ import org.json.JSONObject;
 /**
  * Represents an item object in the daily response
  */
-public class Item implements Serializable {
+public final class Item implements Serializable {
   private static final long serialVersionUID = -8244237877878367713L;
 
   @SerializedName("temp")
