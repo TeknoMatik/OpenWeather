@@ -26,6 +26,7 @@ public final class DailyRequest extends BaseRequest {
 
   @Override
   public void fillParams(RequestParams params) {
+    super.fillParams(params);
     if (q == null) {
       params.put("lat", mLatitude);
       params.put("lon", mLongitude);
