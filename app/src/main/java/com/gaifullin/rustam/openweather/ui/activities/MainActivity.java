@@ -2,8 +2,6 @@ package com.gaifullin.rustam.openweather.ui.activities;
 
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -26,13 +24,17 @@ import com.gaifullin.rustam.openweather.ui.adapters.ForecastAdapter;
 import com.gaifullin.rustam.openweather.ui.dialogs.ChangeCityDialog;
 import com.gaifullin.rustam.openweather.utils.DeviceUtil;
 import com.gaifullin.rustam.openweather.utils.FormatUtil;
-import com.gaifullin.rustam.openweather.utils.LocationUtil;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 
 public final class MainActivity extends ActionBarActivity
-    implements ChangeCityDialog.ChangeCityDialogListener {
+    implements ChangeCityDialog.ChangeCityDialogListener, GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
   private ListView mListView;
   private List<Item> listItem;
@@ -44,26 +46,10 @@ public final class MainActivity extends ActionBarActivity
   private TextView mMaxTextView;
   private TextView mHumidityTextView;
 
-  private Location mFoundLocation;
+  private GoogleApiClient mGoogleApiClient;
+  private LocationRequest mLocationRequest;
 
-  private Boolean mIsFirstTime = true;
-
-  public LocationListener mLocationListener = new LocationListener() {
-    public void onLocationChanged(Location location) {
-      mFoundLocation = location;
-      refreshWeather(location);
-    }
-
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
-
-    public void onProviderEnabled(String provider) {
-    }
-
-    public void onProviderDisabled(String provider) {
-
-    }
-  };
+  private Location mLastLocation;
 
   private OnResponseListener<DailyResponse> mOnResponseListener =
       new OnResponseListener<DailyResponse>() {
@@ -107,29 +93,28 @@ public final class MainActivity extends ActionBarActivity
 
     mListView = (ListView) findViewById(R.id.forecastListView);
     listItem = new ArrayList<>();
+
+    mGoogleApiClient = new GoogleApiClient.Builder(this).addApi(LocationServices.API)
+        .addConnectionCallbacks(this)
+        .addOnConnectionFailedListener(this)
+        .build();
   }
 
-  @Override
-  protected void onResume() {
-    super.onResume();
-    if (mIsFirstTime) {
-      LocationUtil.requestLocation(mLocationListener, this);
-      new PerformLocationTask().execute();
-      mIsFirstTime = false;
-    }
+  @Override protected void onStart() {
+    super.onStart();
+    mGoogleApiClient.connect();
   }
 
-  @Override
-  protected void onPause() {
-    super.onPause();
-    LocationUtil.locationManager.removeUpdates(mLocationListener);
-    mIsFirstTime = true;
+  @Override protected void onStop() {
+    mGoogleApiClient.disconnect();
+    super.onStop();
   }
 
   @Override
   public void onDialogPositiveClick(String query) {
     DailyRequest request = new DailyRequest(query);
     refreshWeather(request);
+    DeviceUtil.showProgressDialog(this, getString(R.string.loading));
   }
 
   @Override
@@ -152,8 +137,7 @@ public final class MainActivity extends ActionBarActivity
   }
 
   private void refreshWeather(Location location) {
-    DailyRequest dailyRequest =
-        new DailyRequest(location.getLatitude(), location.getLongitude());
+    DailyRequest dailyRequest = new DailyRequest(location.getLatitude(), location.getLongitude());
     refreshWeather(dailyRequest);
   }
 
@@ -164,9 +148,7 @@ public final class MainActivity extends ActionBarActivity
 
   private void refreshWeather(DailyRequest request) {
     try {
-      DeviceUtil.showProgressDialog(this, getString(R.string.loading));
-      OpenWeatherClient.request(
-          new DailyHandler(request).addResponseListener(mOnResponseListener));
+      OpenWeatherClient.request(new DailyHandler(request).addResponseListener(mOnResponseListener));
     } catch (JSONException e) {
       e.printStackTrace();
     }
@@ -174,11 +156,12 @@ public final class MainActivity extends ActionBarActivity
 
   private void fillControls(Item item, String city) {
     mCityButton.setText(city);
-    mTemperatureTextView.setText(FormatUtil.formatTemperature(item.getTemperature().getDay(), this));
-    mMinTextView.setText(
-        String.format("Min\n%s", FormatUtil.formatTemperature(item.getTemperature().getMax(), this)));
-    mMaxTextView.setText(
-        String.format("Max\n%s", FormatUtil.formatTemperature(item.getTemperature().getMin(), this)));
+    mTemperatureTextView.setText(
+        FormatUtil.formatTemperature(item.getTemperature().getDay(), this));
+    mMinTextView.setText(String.format("Min\n%s",
+        FormatUtil.formatTemperature(item.getTemperature().getMax(), this)));
+    mMaxTextView.setText(String.format("Max\n%s",
+        FormatUtil.formatTemperature(item.getTemperature().getMin(), this)));
     mHumidityTextView.setText(FormatUtil.percentValue(item.getHumidity()));
   }
 
@@ -187,40 +170,38 @@ public final class MainActivity extends ActionBarActivity
     cityDialog.show(getFragmentManager(), ChangeCityDialog.TAG);
   }
 
-  private class PerformLocationTask extends AsyncTask<Void, Void, Void> {
-    @Override
-    protected void onPreExecute() {
-      super.onPreExecute();
-      DeviceUtil.showProgressDialog(MainActivity.this, getString(R.string.getting_location));
-    }
+  @Override public void onConnected(Bundle bundle) {
+    mLocationRequest = LocationRequest.create();
+    mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+    mLocationRequest.setInterval(Constants.GPS_UPDATE_TIME);
 
-    @Override
-    protected Void doInBackground(Void... params) {
-      Long currentTime = System.currentTimeMillis();
-      while (mFoundLocation == null) {
-        try {
-          Thread.sleep(300);
-        } catch (Exception e) {
-          Log.e(MainActivity.class.getName(), e.getMessage(), e);
-        }
-        if (System.currentTimeMillis() - currentTime > 5 * 1000) {
-          break;
-        }
-      }
-      return null;
-    }
+    LocationServices.FusedLocationApi.requestLocationUpdates(
+        mGoogleApiClient, mLocationRequest, this);
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-      DeviceUtil.hideProgressDialog();
-      Location location = LocationUtil.getLocation(MainActivity.this);
-      if (location != null) {
-        refreshWeather(location);
-      } else {
-        Toast.makeText(MainActivity.this, getString(R.string.using_default_location),
-            Toast.LENGTH_SHORT).show();
-        refreshWeather(Constants.DEFAULT_CITY);
-      }
+    Location location = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+    if (location != null) {
+      DeviceUtil.showProgressDialog(this, getString(R.string.loading));
+      mLastLocation = location;
+      refreshWeather(location);
+    } else {
+      DeviceUtil.showProgressDialog(this, getString(R.string.loading));
+      refreshWeather(Constants.DEFAULT_CITY);
+    }
+  }
+
+  @Override public void onConnectionSuspended(int i) {
+    Log.i(MainActivity.class.getName(), "GoogleApiClient connection has been suspend");
+  }
+
+  @Override public void onConnectionFailed(ConnectionResult connectionResult) {
+    Log.i(MainActivity.class.getName(), "GoogleApiClient connection has failed");
+  }
+
+  @Override public void onLocationChanged(Location location) {
+    if (mLastLocation == null || (mLastLocation.getLatitude() != location.getLatitude()
+        && mLastLocation.getLongitude() != location.getLongitude())) {
+      mLastLocation = location;
+      refreshWeather(location);
     }
   }
 }
