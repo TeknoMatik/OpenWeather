@@ -1,9 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+  <color name="colorPrimary">#03A9F4</color>
+  <color name="colorPrimaryDark">#0288D1</color>
+  <color name="textColorPrimary">#FFFFFF</color>
+  <color name="windowBackground">#E1F5FE</color>
 
-  <!-- Base application theme. -->
-  <style name="AppTheme"
-      parent="Theme.AppCompat.Light.DarkActionBar">
-    <!-- Customize your theme here. -->
+  <style name="AppTheme" parent="AppTheme.Base"/>
+
+  <style name="AppTheme.Base" parent="Theme.AppCompat">
+    <item name="colorPrimary">@color/colorPrimary</item>
+    <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="android:windowBackground">@color/windowBackground</item>
+    <item name="android:windowNoTitle">true</item>
+    <item name="windowActionBar">false</item>
   </style>
 
 </resources>

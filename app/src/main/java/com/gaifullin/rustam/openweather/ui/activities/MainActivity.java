@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONException;
 
-public final class MainActivity extends ActionBarActivity
+public final class MainActivity extends BaseActivity
     implements ChangeCityDialog.ChangeCityDialogListener, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
@@ -83,7 +83,6 @@ public final class MainActivity extends ActionBarActivity
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_main);
 
     mCityButton = (Button) findViewById(R.id.cityButton);
     mTemperatureTextView = (TextView) findViewById(R.id.temperatureTextView);
@@ -98,6 +97,10 @@ public final class MainActivity extends ActionBarActivity
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)
         .build();
+  }
+
+  @Override protected int getLayoutResources() {
+    return R.layout.activity_main;
   }
 
   @Override protected void onStart() {

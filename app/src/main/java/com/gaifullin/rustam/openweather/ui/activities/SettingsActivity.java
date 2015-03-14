@@ -1,21 +1,21 @@
 package com.gaifullin.rustam.openweather.ui.activities;
-
-import android.app.Activity;
 import android.preference.PreferenceFragment;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 
 import com.gaifullin.rustam.openweather.R;
 
-public final class SettingsActivity extends ActionBarActivity {
+public final class SettingsActivity extends BaseActivity {
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.activity_settings);
     getFragmentManager().beginTransaction()
         .add(R.id.container, new SettingsFragment())
         .commit();
+  }
+
+  @Override protected int getLayoutResources() {
+    return R.layout.activity_settings;
   }
 
   public static class SettingsFragment extends PreferenceFragment {
