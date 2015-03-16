@@ -133,12 +133,8 @@ public final class MainActivity extends BaseActivity
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
-      List<Pair<View, String>> pairList = getDefaultPair();
       Intent intent = new Intent(this, SettingsActivity.class);
-      ActivityOptionsCompat activityOptions =
-          ActivityOptionsCompat.makeSceneTransitionAnimation(
-              MainActivity.this, pairList.toArray(new Pair[pairList.size()]));
-      ActivityCompat.startActivity(MainActivity.this, intent, activityOptions.toBundle());
+      ActivityCompat.startActivity(MainActivity.this, intent, null);
       return true;
     }
 
