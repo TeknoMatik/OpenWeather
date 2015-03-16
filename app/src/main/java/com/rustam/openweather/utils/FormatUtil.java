@@ -3,7 +3,7 @@ package com.rustam.openweather.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-import com.gaifullin.rustam.openweather.R;
+import com.rustam.openweather.R;
 import java.text.DecimalFormat;
 
 /**

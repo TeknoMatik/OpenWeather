@@ -9,7 +9,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import com.gaifullin.rustam.openweather.R;
+import com.rustam.openweather.R;
 
 public class ChangeCityDialog extends DialogFragment {
 

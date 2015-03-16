@@ -2,7 +2,7 @@ package com.rustam.openweather.ui.activities;
 import android.preference.PreferenceFragment;
 import android.os.Bundle;
 
-import com.gaifullin.rustam.openweather.R;
+import com.rustam.openweather.R;
 
 public final class SettingsActivity extends BaseActivity {
 

@@ -3,6 +3,9 @@ package com.rustam.openweather.ui.activities;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.ActivityOptionsCompat;
+import android.support.v4.util.Pair;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.rustam.openweather.Constants;
-import com.gaifullin.rustam.openweather.R;
+import com.rustam.openweather.R;
 import com.rustam.openweather.server.OpenWeatherClient;
 import com.rustam.openweather.server.entity.Item;
 import com.rustam.openweather.server.handlers.DailyHandler;
@@ -130,8 +133,12 @@ public final class MainActivity extends BaseActivity
     int id = item.getItemId();
 
     if (id == R.id.action_settings) {
+      List<Pair<View, String>> pairList = getDefaultPair();
       Intent intent = new Intent(this, SettingsActivity.class);
-      startActivity(intent);
+      ActivityOptionsCompat activityOptions =
+          ActivityOptionsCompat.makeSceneTransitionAnimation(
+              MainActivity.this, pairList.toArray(new Pair[pairList.size()]));
+      ActivityCompat.startActivity(MainActivity.this, intent, activityOptions.toBundle());
       return true;
     }
 

@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rustam.openweather.Constants;
-import com.gaifullin.rustam.openweather.R;
+import com.rustam.openweather.R;
 import com.rustam.openweather.server.entity.Item;
 import com.rustam.openweather.utils.FormatUtil;
 import com.squareup.picasso.Picasso;
