@@ -4,12 +4,14 @@
   <color name="colorPrimaryDark">#0288D1</color>
   <color name="textColorPrimary">#FFFFFF</color>
   <color name="windowBackground">#E1F5FE</color>
+  <color name="listBackground">#B3E5FC</color>
 
   <style name="AppTheme" parent="AppTheme.Base"/>
 
   <style name="AppTheme.Base" parent="Theme.AppCompat.Light">
     <item name="colorPrimary">@color/colorPrimary</item>
     <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <item name="hov"
     <item name="android:actionMenuTextColor">@color/textColorPrimary</item>
     <item name="android:windowBackground">@color/windowBackground</item>
     <item name="android:windowNoTitle">true</item>
