@@ -36,6 +36,8 @@ public final class MainActivity extends BaseActivity
     implements ChangeCityDialog.ChangeCityDialogListener, GoogleApiClient.ConnectionCallbacks,
     GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
 
+  private static final int SETTINGS_REQUEST_CODE = 1;
+
   private ListView mListView;
   private List<Item> listItem;
   private ForecastAdapter mAdapter;
@@ -113,6 +115,17 @@ public final class MainActivity extends BaseActivity
     super.onStop();
   }
 
+  @Override protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    super.onActivityResult(requestCode, resultCode, data);
+
+    switch (requestCode) {
+      case SETTINGS_REQUEST_CODE: {
+        mAdapter.notifyDataSetChanged();
+        break;
+      }
+    }
+  }
+
   @Override
   public void onDialogPositiveClick(String query) {
     DailyRequest request = new DailyRequest(query);
@@ -132,7 +145,7 @@ public final class MainActivity extends BaseActivity
 
     if (id == R.id.action_settings) {
       Intent intent = new Intent(this, SettingsActivity.class);
-      ActivityCompat.startActivity(MainActivity.this, intent, null);
+      ActivityCompat.startActivityForResult(MainActivity.this, intent, SETTINGS_REQUEST_CODE, null);
       return true;
     }
 
@@ -198,6 +211,8 @@ public final class MainActivity extends BaseActivity
 
   @Override public void onConnectionFailed(ConnectionResult connectionResult) {
     Log.i(MainActivity.class.getName(), "GoogleApiClient connection has failed");
+    //Well...let's get weather with default city
+    refreshWeather(Constants.DEFAULT_CITY);
   }
 
   @Override public void onLocationChanged(Location location) {
