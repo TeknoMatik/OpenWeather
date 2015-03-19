@@ -11,9 +11,6 @@ import com.rustam.openweather.R;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by rustamgaifullin on 3/14/15.
- */
 abstract class BaseActivity extends ActionBarActivity {
   protected Toolbar mToolbar;
 
