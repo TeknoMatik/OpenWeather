@@ -1,2 +1,2 @@
 # OpenWeather
-Simple weather app for openweather.com
+Simple weather app
